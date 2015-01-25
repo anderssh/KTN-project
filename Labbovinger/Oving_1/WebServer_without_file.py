@@ -42,5 +42,4 @@ while True:
 	finally:
 		connectionSocket.close()
 		serverSocket.close()
-	break
 
