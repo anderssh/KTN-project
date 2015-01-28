@@ -13,24 +13,28 @@ while True:
 	(connectionSocket, addr) = serverSocket.accept()
 	print 'Got connection from', addr[0], addr[1];
 	try:
-		message = connectionSocket.recv(1024)
+		message = connectionSocket.recv(2048)
 		#print message
-		print message.split()[1]
-		f = open(message.split()[1])
+		#print message
+		filename = message.split()[1];
+		f = open(filename[1:])
 		outputdata = f.read()
+		f.close()
 
 		#Send one HTTP header line into socket
-		connectionSocket.send('HTTP/1.0 200 OK\n')
-		connectionSocket.send('Content-Type: text/html\n')
+		connectionSocket.send('HTTP/1.0 200 OK\r\n')
+		connectionSocket.send('Content-Type: text/html\r\n\r\n')
+
 		#Send the content of the requested file to the client
-		for i in range(0, len(outputdata)):
-			connectionSocket.send(outputdata[i])
-			connectionSocket.close()
+		connectionSocket.send(outputdata)
+		connectionSocket.close()
 	except IOError:
 		#Send response message for file not found
 		print 'IOerror'
-		#connectionSocket.send('HTTP/1.1 404 Not Found\n\n')
+		connectionSocket.send('HTTP/1.1 404 Not Found\r\n\r\n404')
 		#Close client socket
 		connectionSocket.close()
-	serverSocket.close()
+
+serverSocket.close()
+	
 
