@@ -7,7 +7,7 @@ from socket import *
 # Notice the use of SOCK_DGRAM for UDP packets
 serverSocket = socket(AF_INET, SOCK_DGRAM)
 # Assign IP address and port number to socket
-serverSocket.bind(('', 12000))
+serverSocket.bind(('', 12004))
 
 while True:
 	# Generate random number in the range of 0 to 10
