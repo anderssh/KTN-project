@@ -4,7 +4,7 @@ from socket import *
 serverSocket = socket(AF_INET, SOCK_STREAM)
 
 #Prepare a sever socket
-serverSocket.bind(('',1291))
+serverSocket.bind(('',1290))
 serverSocket.listen(5)
 
 while True:
@@ -27,7 +27,7 @@ while True:
 
 		#Send the content of the requested file to the client
 		connectionSocket.send(outputdata)
-		connectionSocket.close()
+
 	except IOError:
 		#Send response message for file not found
 		print 'IOerror'
