@@ -1,12 +1,6 @@
 # Kort beskrivelse av prosjektet
 
-Prosjektet er delt inn i 7 moduler. Vi har en client.py-fil som er "dum". Den kan bare lese inn data fra brukern,
-sende det til server, og printe respons. All annen funksjonalitet finner vi i server.py-filen. Denne inneholder 
-historien, forbindelsene (en forbindelse TCP-forbindelse mellom bruker og server) og forbindelseshåndterer 
-(som oppretter en forbindelse for hver client som blir kjørt). Historien er satt sammen av historieinnlegg, som er en
-egen modul, struct i dettet tilfellet. Forbindelseobjektene inneholder brukerinnformasjon om sin respektive client, lagret
-som et bruker-objekt. Den siste modulen i serveren er lagringsmodulen, denne inneholder historien, hjelp-dataen og listen over 
-forbindelser. 
+Systemet er delt inn i 7 moduler, hvor av to er server og klient, hver med sitt eget klassediagram. Vi har en client.py-fil som er "dum". Den kan bare lese inn data fra brukern, sende det til server, og printe respons. All annen funksjonalitet finner vi i server.py-filen. Denne inneholder historien, forbindelsene (en forbindelse TCP-forbindelse mellom bruker og server) og forbindelseshåndterer (som oppretter en forbindelse for hver client som blir kjørt). Historien er satt sammen av historieinnlegg, som er en egen modul, struct i dettet tilfellet. Forbindelseobjektene inneholder brukerinnformasjon om sin respektive client, lagret som et bruker-objekt. Den siste modulen i serveren er lagringsmodulen, denne inneholder historien, hjelp-dataen og listen over forbindelser.
 
 Det opprettes et forbindelsesobjekt for hver client-fil som kjøres så fremt denne oppnår kommunikasjon med serveren. Da står 
 fritt til å be om historie og hjelp. Brukeren som tilhører denne forbindelsen er da foreløpig satt til "utlogget"/"inaktiv". 
