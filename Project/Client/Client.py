@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import socket
-import MessageReceiver
+from MessageReceiver import * 
+import json
 
 class Client:
     """
@@ -14,32 +15,56 @@ class Client:
 
         # Set up the socket connection to the server
         self.connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.run()
 
-        # TODO: Finish init process with necessary code
+        self.host = host
+        self.server_port = server_port
+
         self.messageReceiver = MessageReceiver(self, self.connection)
+
+        self.run()
 
     def run(self):
         # Initiate the connection to the server
         self.connection.connect((self.host, self.server_port))
-
         self.messageReceiver.start()
 
+        while True:
+            user_message = raw_input()
+            self.send_payload(user_message)
+
     def disconnect(self):
-        # TODO: Handle disconnection
         pass
 
     def receive_message(self, message):
+
         # TODO: Handle incoming message
-        pass
+        message = json.loads(message);
+
+        timestamp     = message['timestamp']
+        response      = message['response']
+        content       = message['content']
+        sender        = message['sender']
+
+        if (response == 'history'):
+            for history_entry in content:
+                print(history_entry)
+
+        elif (response == 'message'):
+            print(sender + ': ' + content)
+        else:
+            print(content)
 
 
     def send_payload(self, data):
-        # TODO: Handle sending of a payload
 
-        message = raw_input()
+        request = data.split(' ',1)[0]
+        content = data[len(request):]
+        content = content.strip()
 
-        self.connection.send(message)
+        formatted_data = {"request" : request, "content" : content} 
+        formatted_data = json.dumps(formatted_data)
+
+        self.connection.send(formatted_data)
 
 
 if __name__ == '__main__':
